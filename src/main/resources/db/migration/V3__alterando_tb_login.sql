@@ -1,0 +1,2 @@
+ALTER TABLE tb_login
+    ALTER COLUMN usuario_id DROP NOT NULL;
