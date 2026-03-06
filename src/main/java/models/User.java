@@ -1,6 +1,6 @@
 package models;
 
-import com.usuario.quero_ler.enuns.UsuarioPerfil;
+import com.usuario.quero_ler.enuns.UsuarioProfile;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -9,23 +9,23 @@ import lombok.*;
 @Setter
 @Builder
 @Entity
-@Table(name = "tb_login")
+@Table(name = "tb_users")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Login {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String login;
+    private String user;
     @Size(min = 8)
     @Column(name = "senha", nullable = false)
     private String senha;
 
     @OneToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "profile_id")
     private Usuario usuario;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "perfil", nullable = false)
-    private UsuarioPerfil perfil;
+    @Column(name = "profile", nullable = false)
+    private UsuarioProfile profile;
 }

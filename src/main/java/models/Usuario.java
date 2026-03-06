@@ -1,6 +1,5 @@
 package models;
 
-import com.usuario.quero_ler.enuns.UsuarioPerfil;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Past;
@@ -14,7 +13,7 @@ import java.util.List;
 @Setter
 @Builder
 @Entity
-@Table(name = "tb_usuario")
+@Table(name = "tb_profile")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Usuario {
@@ -60,8 +59,8 @@ public class Usuario {
     @Column(name = "foto", columnDefinition = "BYTEA")
     private byte[] foto;
 
-    @OneToOne(mappedBy = "usuario")
-    private Login login;
+    @OneToOne(mappedBy = "profile")
+    private User user;
 
     @OneToMany(mappedBy = "usuario")
     private List<Notificacao> notificacoes;

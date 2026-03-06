@@ -1,4 +1,4 @@
-CREATE TABLE tb_login (
+CREATE TABLE tb_user (
                           id BIGSERIAL PRIMARY KEY,
                           login VARCHAR(255),
                           senha VARCHAR(255) NOT NULL,
