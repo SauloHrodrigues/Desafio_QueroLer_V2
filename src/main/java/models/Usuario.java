@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -60,4 +62,7 @@ public class Usuario {
 
     @OneToOne(mappedBy = "usuario")
     private Login login;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Notificacao> notificacoes;
 }

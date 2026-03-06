@@ -19,4 +19,10 @@ public class Notificacao {
     private LocalDateTime dataDeCriacao;
     @Column(name = "notificação", nullable = false)
     private String notificacao;
+
+    private LocalDateTime dataVisualizacao;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 }
