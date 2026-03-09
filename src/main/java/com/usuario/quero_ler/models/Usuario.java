@@ -1,4 +1,4 @@
-package models;
+package com.usuario.quero_ler.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Builder
 @Entity
-@Table(name = "tb_profile")
+@Table(name = "tb_usuario")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Usuario {
@@ -54,12 +54,13 @@ public class Usuario {
     @Column(name = "pais", length = 100)
     private String pais;
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
+//    @Lob
+//    @Basic(fetch = FetchType.LAZY)
     @Column(name = "foto", columnDefinition = "BYTEA")
     private byte[] foto;
 
-    @OneToOne(mappedBy = "profile")
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "usuario")

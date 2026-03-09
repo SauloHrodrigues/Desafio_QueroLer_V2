@@ -1,4 +1,4 @@
-package models;
+package com.usuario.quero_ler.models;
 
 import jakarta.persistence.*;
 import lombok.*;

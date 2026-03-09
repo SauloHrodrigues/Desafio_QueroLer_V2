@@ -1,4 +1,4 @@
-package models;
+package com.usuario.quero_ler.models;
 
 import com.usuario.quero_ler.enuns.DocumentoTipo;
 import jakarta.persistence.*;
