@@ -1,15 +1,13 @@
 package com.usuario.quero_ler.mappers;
 
-import com.usuario.quero_ler.dtos.UsuarioDadosComplementarRequest;
-import com.usuario.quero_ler.dtos.UsuarioRequestDto;
-import com.usuario.quero_ler.dtos.UsuarioResponseDto;
+import com.usuario.quero_ler.dtos.*;
 import com.usuario.quero_ler.models.Usuario;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UsuarioMapper {
 
-    public Usuario toEntity(UsuarioRequestDto dto){
+    public Usuario toEntity(UsuarioRequestDto dto) {
         Usuario usuario = new Usuario();
         usuario.setNome(dto.nome());
         usuario.setEmail(dto.email());
@@ -19,10 +17,54 @@ public class UsuarioMapper {
         return usuario;
     }
 
-    public Usuario update(Usuario usuario, UsuarioDadosComplementarRequest dto){
+    public Usuario complementarCadastro(Usuario usuario, UsuarioDadosComplementarRequest dto) {
         usuario.setCidade(dto.cidade());
         usuario.setEstado(dto.estado());
         usuario.setPais(dto.pais());
+        return usuario;
+    }
+
+    public Usuario update(Usuario usuario, UsuarioAtualizadoLeitorReguest dto) {
+        if (dto.nome() != null) {
+            usuario.setNome(dto.nome());
+        }
+        if (dto.email() != null) {
+            usuario.setEmail(dto.email());
+        }
+        if (dto.dataDeNascimento() != null) {
+            usuario.setDataDeNascimento(dto.dataDeNascimento());
+        }
+        if (dto.cidade() != null) {
+            usuario.setCidade(dto.cidade());
+        }
+        if (dto.estado() != null) {
+            usuario.setEstado(dto.estado());
+        }
+        if (dto.pais() != null) {
+            usuario.setPais(dto.pais());
+        }
+        if (dto.foto() != null) {
+            usuario.setFoto(dto.foto());
+        }
+        return usuario;
+    }
+
+    public Usuario update(Usuario usuario, UsuarioAtualizadoAdministradorReguest dto) {
+        if (dto.dataDeNascimento() != null) {
+            usuario.setDataDeNascimento(dto.dataDeNascimento());
+        }
+        if (dto.cidade() != null) {
+            usuario.setCidade(dto.cidade());
+        }
+        if (dto.estado() != null) {
+            usuario.setEstado(dto.estado());
+        }
+        if (dto.pais() != null) {
+            usuario.setPais(dto.pais());
+        }
+        if (dto.foto() != null) {
+            usuario.setFoto(dto.foto());
+        }
         return usuario;
     }
 
@@ -35,6 +77,18 @@ public class UsuarioMapper {
                 usuario.getUser().getProfile(),
                 usuario.getDataDeNascimento(),
                 usuario.getAceitarTermos(),
+                usuario.getCidade(),
+                usuario.getEstado(),
+                usuario.getPais(),
+                usuario.getFoto()
+        );
+    }
+
+    public UsuarioDadosResponse toResponseDados(Usuario usuario) {
+        return new UsuarioDadosResponse(
+                usuario.getNome(),
+                usuario.getEmail(),
+                usuario.getDataDeNascimento(),
                 usuario.getCidade(),
                 usuario.getEstado(),
                 usuario.getPais(),

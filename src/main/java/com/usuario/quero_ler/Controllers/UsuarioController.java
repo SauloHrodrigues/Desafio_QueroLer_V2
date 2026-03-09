@@ -4,7 +4,6 @@ import com.usuario.quero_ler.dtos.*;
 import com.usuario.quero_ler.service.UsuarioServiceI;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +20,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DadosDoUsuarioResponse> dadosDoUsuario(@PathVariable Long id) {
+    public ResponseEntity<UsuarioDadosResponse> dadosDoUsuario(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(serviceI.getDadosDoUsuario(id));
     }
 
@@ -32,19 +31,20 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> alterar(@PathVariable Long id, @RequestBody @Valid DadosAtualizadosLeitorReguest dto) {
-        serviceI.atualizarDados(id, dto);
+    public ResponseEntity<Void> alterar(@PathVariable Long id, @RequestBody @Valid UsuarioAtualizadoLeitorReguest dto) {
+        serviceI.atualizar(id, dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping("/{id}/administrador")
-    public ResponseEntity<Void> alterar(@PathVariable Long id, @RequestBody @Valid DadosAtualizadosAdministradorReguest dto) {
-        serviceI.atualizarDados(id, dto);
+    public ResponseEntity<Void> alterar(@PathVariable Long id, @RequestBody @Valid UsuarioAtualizadoAdministradorReguest dto) {
+        serviceI.atualizar(id, dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @DeleteMapping()
-    public ResponseEntity<Void> excluirPerfil() {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluirPerfil(@PathVariable Long id) {
+        serviceI.excluirPerfil(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

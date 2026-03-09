@@ -59,7 +59,7 @@ public class Usuario {
     @Column(name = "foto", columnDefinition = "BYTEA")
     private byte[] foto;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 

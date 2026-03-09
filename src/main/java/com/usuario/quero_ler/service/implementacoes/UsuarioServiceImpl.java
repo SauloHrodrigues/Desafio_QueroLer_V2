@@ -3,6 +3,7 @@ package com.usuario.quero_ler.service.implementacoes;
 import com.usuario.quero_ler.dtos.*;
 import com.usuario.quero_ler.enuns.UsuarioProfile;
 import com.usuario.quero_ler.exceptions.especies.UsuarioNaoEncontradoException;
+import com.usuario.quero_ler.exceptions.especies.UsuarioSemPermissaoParaAcaoException;
 import com.usuario.quero_ler.mappers.UsuarioMapper;
 import com.usuario.quero_ler.models.User;
 import com.usuario.quero_ler.models.Usuario;
@@ -35,8 +36,41 @@ public class UsuarioServiceImpl implements UsuarioServiceI {
     public void adicionarDados(Long id, UsuarioDadosComplementarRequest dto) {
         Usuario usuario = getUsuario(id);
         if(login.validarLogin(usuario.getUser())){
-           usuario= mapper.update(usuario,dto);
+           usuario= mapper.complementarCadastro(usuario,dto);
             repository.save(usuario);
+        }
+    }
+
+
+    @Override
+    public UsuarioDadosResponse getDadosDoUsuario(Long id) {
+       Usuario usuario = getUsuario(id);
+       login.validarLogin(usuario.getUser());
+        return mapper.toResponseDados(usuario);
+    }
+
+    @Override
+    public void atualizar(Long id, UsuarioAtualizadoLeitorReguest dto) {
+        Usuario usuario = getUsuario(id);
+        login.validarLogin(usuario.getUser());
+        mapper.update(usuario,dto);
+    }
+
+    @Override
+    public void atualizar(Long id, UsuarioAtualizadoAdministradorReguest dto) {
+        Usuario usuario = getUsuario(id);
+        login.validarLogin(usuario.getUser());
+        mapper.update(usuario,dto);
+    }
+
+    @Override
+    public void excluirPerfil(Long id) {
+        Usuario usuario = getUsuario(id);
+        login.validarLogin(usuario.getUser());
+        if(usuario.getUser().getProfile().equals(UsuarioProfile.LEITOR)){
+            repository.delete(usuario);
+        } else {
+            throw new UsuarioSemPermissaoParaAcaoException("Ação não permitida para este usuário.");
         }
     }
 
@@ -46,26 +80,4 @@ public class UsuarioServiceImpl implements UsuarioServiceI {
                         " com ID: '"+id+"'.")
         );
     }
-
-
-    @Override
-    public DadosDoUsuarioResponse getDadosDoUsuario(Long id) {
-        return null;
-    }
-
-    @Override
-    public void atualizarDados(Long id, DadosAtualizadosLeitorReguest dto) {
-
-    }
-
-    @Override
-    public void atualizarDados(Long id, DadosAtualizadosAdministradorReguest dto) {
-
-    }
-
-    @Override
-    public void excluirPerfil() {
-
-    }
-
 }

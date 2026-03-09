@@ -53,36 +53,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidation(
-            MethodArgumentNotValidException ex) {
-
-        Map<String, String> erros = new HashMap<>();
-
-        ex.getBindingResult().getFieldErrors().forEach(error ->
-                erros.put(error.getField(), error.getDefaultMessage())
-        );
-
-        return ResponseEntity.badRequest().body(erros);
+      @ExceptionHandler(UsuarioSemPermissaoParaAcaoException.class)
+    public ResponseEntity<Object> handlerUsuarioSemPermissaoParaAcaoException(UsuarioSemPermissaoParaAcaoException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<Map<String, String>> handleJsonError(
-            HttpMessageNotReadableException ex) {
-
-        Map<String, String> erro = new HashMap<>();
-
-        Throwable causa = ex.getCause();
-
-        if (causa instanceof com.fasterxml.jackson.databind.exc.InvalidFormatException invalidFormat) {
-
-            if (invalidFormat.getTargetType().equals(java.time.LocalDate.class)) {
-                erro.put("dataDeNascimento", "Formato inválido. Use dd/MM/yyyy");
-                return ResponseEntity.badRequest().body(erro);
-            }
-        }
-
-        erro.put("erro", "JSON inválido.");
-        return ResponseEntity.badRequest().body(erro);
-    }
 }
