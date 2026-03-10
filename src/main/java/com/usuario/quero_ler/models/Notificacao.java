@@ -16,13 +16,8 @@ public class Notificacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "data_de_criacao", nullable = false)
     private LocalDateTime dataDeCriacao;
-    @Column(name = "notificação", nullable = false)
+    @Column(name = "notificacao", nullable = false)
     private String notificacao;
-
-    private LocalDateTime dataVisualizacao;
-
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
 }

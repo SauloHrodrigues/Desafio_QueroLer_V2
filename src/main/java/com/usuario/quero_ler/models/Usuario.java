@@ -63,6 +63,6 @@ public class Usuario {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<Notificacao> notificacoes;
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<UsuarioNotificacao> notificacoes;
 }

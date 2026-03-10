@@ -7,6 +7,7 @@ import com.usuario.quero_ler.exceptions.especies.UsuarioSemPermissaoParaAcaoExce
 import com.usuario.quero_ler.mappers.UsuarioMapper;
 import com.usuario.quero_ler.models.User;
 import com.usuario.quero_ler.models.Usuario;
+import com.usuario.quero_ler.repository.UsuarioNotificacaoRepository;
 import com.usuario.quero_ler.repository.UsuarioRepository;
 import com.usuario.quero_ler.service.LoginServiceI;
 import com.usuario.quero_ler.service.UsuarioServiceI;
@@ -74,7 +75,7 @@ public class UsuarioServiceImpl implements UsuarioServiceI {
         }
     }
 
-    protected Usuario getUsuario(Long id){
+    public Usuario getUsuario(Long id){
         return repository.findById(id).orElseThrow(
                 ()-> new UsuarioNaoEncontradoException("Não foi encontrado nenhum usuário" +
                         " com ID: '"+id+"'.")
