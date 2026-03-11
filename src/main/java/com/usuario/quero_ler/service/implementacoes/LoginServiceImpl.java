@@ -3,17 +3,20 @@ package com.usuario.quero_ler.service.implementacoes;
 import com.usuario.quero_ler.dtos.LoginRequestDto;
 import com.usuario.quero_ler.dtos.UsuarioRequestDto;
 import com.usuario.quero_ler.enuns.UsuarioProfile;
+import com.usuario.quero_ler.exceptions.especies.CredenciaisInvalidasException;
 import com.usuario.quero_ler.exceptions.especies.UsuarioComPerfilInvalidoException;
 import com.usuario.quero_ler.exceptions.especies.UsuarioNaoAutenticadoException;
+import com.usuario.quero_ler.exceptions.especies.UsuarioNaoEncontradoException;
+import com.usuario.quero_ler.models.User;
 import com.usuario.quero_ler.repository.UserRepository;
 import com.usuario.quero_ler.service.LoginServiceI;
 import com.usuario.quero_ler.utils.Senhas;
-import jakarta.persistence.Id;
 import jakarta.transaction.Transactional;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import com.usuario.quero_ler.models.User;
 import org.springframework.stereotype.Service;
 
+@Getter
 @RequiredArgsConstructor
 @Service
 public class LoginServiceImpl implements LoginServiceI {
@@ -35,31 +38,32 @@ public class LoginServiceImpl implements LoginServiceI {
     @Override
     public void login(LoginRequestDto dto) {
         User user = repository.findByUserIgnoreCase(dto.user()).orElseThrow(
-                () -> new RuntimeException("Usuario não cadastrado.")
+                () -> new UsuarioNaoEncontradoException("Usuario não cadastrado.")
         );
 
-        if(!user.getProfile().equals(dto.profile())){
+        if (!user.getProfile().equals(dto.profile())) {
             throw new UsuarioComPerfilInvalidoException("Perfil inválido");
         }
 
         Boolean senhaValida = Senhas.validar(dto.senha(), user.getSenha());
 
         if (!senhaValida) {
-            throw new RuntimeException("Senha invalida.");
+            throw new CredenciaisInvalidasException("Senha inválida.");
         }
-            logado = user;
+        logado = user;
     }
 
     @Override
-    public User validarLogin(){
-        if(logado == null){
+    public User validarLogin() {
+        if (logado == null) {
             throw new UsuarioNaoAutenticadoException("Usuario não logado!");
         }
         return logado;
     }
+
     @Override
     public Boolean validarLogin(User user) {
-        if (!(logado!= null && user.getId().equals(logado.getId()))) {
+        if (!(logado != null && user.getId().equals(logado.getId()))) {
             throw new UsuarioNaoAutenticadoException("Usuário não logado. ");
         }
         return true;

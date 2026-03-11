@@ -67,6 +67,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handlerDocumentoNaoPodeSerDeletadoException(DocumentoNaoPodeSerDeletadoException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
+    @ExceptionHandler(CredenciaisInvalidasException.class)
+    public ResponseEntity<Object> handlerCredenciaisInvalidasException(CredenciaisInvalidasException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
+    }
 
     @ExceptionHandler(EnumInvalidoException.class)
     public ResponseEntity<String> handleEnumInvalido(EnumInvalidoException ex) {
