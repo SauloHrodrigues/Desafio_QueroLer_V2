@@ -8,6 +8,6 @@ import com.usuario.quero_ler.models.User;
 public interface LoginServiceI {
     User criar(UsuarioRequestDto dto, UsuarioProfile profile);
     void login(LoginRequestDto dto);
-    User validarLogin(Long id);
+    User validarLogin();
     Boolean validarLogin(User user);
 }

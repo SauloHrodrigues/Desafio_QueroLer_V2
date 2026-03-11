@@ -43,10 +43,20 @@ public class LoginServiceImpl implements LoginServiceI {
             throw new RuntimeException("Senha invalida.");
         }
     }
+//
+//    @Override
+//    public User validarLogin(Long id){
+//        if(id == logado.getId()){
+//            return logado;
+//        } else {
+//            throw new UsuarioNaoAutenticadoException("Usuario não logado!");
+//        }
+//
+//    }
 
     @Override
-    public User validarLogin(Long id){
-        if(id == logado.getId()){
+    public User validarLogin(){
+        if(logado != null){
             return logado;
         } else {
             throw new UsuarioNaoAutenticadoException("Usuario não logado!");

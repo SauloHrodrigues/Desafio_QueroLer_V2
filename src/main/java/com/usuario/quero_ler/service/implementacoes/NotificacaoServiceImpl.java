@@ -69,5 +69,4 @@ public class NotificacaoServiceImpl implements NotificacaoServiceI {
         usuarioNotificacaoRepository.deleteByNotificacaoDataDeCriacaoBefore(dataDeCorte);
         repository.deleteByDataDeCriacaoBefore(dataDeCorte);
     }
-
 }
