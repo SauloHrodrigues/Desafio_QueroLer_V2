@@ -4,8 +4,10 @@ import com.usuario.quero_ler.dtos.DocumentoAlteracoesDto;
 import com.usuario.quero_ler.dtos.DocumentoRequestDto;
 import com.usuario.quero_ler.dtos.DocumentoResponseDto;
 import com.usuario.quero_ler.dtos.NotificacaoRequestDto;
+import com.usuario.quero_ler.enuns.DocumentoTipo;
 import com.usuario.quero_ler.enuns.UsuarioProfile;
 import com.usuario.quero_ler.exceptions.especies.DocumentoNaoEncontradoException;
+import com.usuario.quero_ler.exceptions.especies.DocumentoNaoPodeSerDeletadoException;
 import com.usuario.quero_ler.exceptions.especies.UsuarioSemPermissaoParaAcaoException;
 import com.usuario.quero_ler.mappers.DocumentoMapper;
 import com.usuario.quero_ler.models.Documento;
@@ -48,6 +50,23 @@ public class DocumentoServiceImpl implements DocumentoServiceI {
     @Override
     public DocumentoResponseDto getTermosGeraisDeUso() {
         return null;
+    }
+
+    @Override
+    public void apagar(Long id){
+        User user = login.validarLogin();
+        if(!user.getProfile().equals(UsuarioProfile.ADMINISTRADOR)){
+            throw new UsuarioSemPermissaoParaAcaoException("Apenas administradores podem executar esta ação.");
+        }
+        Documento documento = repository.findById(id).orElseThrow(
+                ()-> new DocumentoNaoEncontradoException("Documento não encontrado.")
+        );
+
+        if(documento.getTipo().equals(DocumentoTipo.TERMOS_GERAIS_DE_USO)){
+            throw new DocumentoNaoPodeSerDeletadoException("O documento é TERMOS GERAIS DE USO, não pode ser apagado.");
+        }
+
+        repository.delete(documento);
     }
 
     protected void gerarNonificacao(String texto){

@@ -63,6 +63,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handlerUsuarioComPerfilInvalidoException(UsuarioComPerfilInvalidoException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
+    @ExceptionHandler(DocumentoNaoPodeSerDeletadoException.class)
+    public ResponseEntity<Object> handlerDocumentoNaoPodeSerDeletadoException(DocumentoNaoPodeSerDeletadoException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
 
     @ExceptionHandler(EnumInvalidoException.class)
     public ResponseEntity<String> handleEnumInvalido(EnumInvalidoException ex) {

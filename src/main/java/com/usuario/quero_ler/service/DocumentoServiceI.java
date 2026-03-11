@@ -8,4 +8,5 @@ public interface DocumentoServiceI {
     DocumentoResponseDto criar(DocumentoRequestDto dto);
     void alterar(Long id, DocumentoAlteracoesDto dto);
     DocumentoResponseDto getTermosGeraisDeUso();
+    void apagar(Long id);
 }

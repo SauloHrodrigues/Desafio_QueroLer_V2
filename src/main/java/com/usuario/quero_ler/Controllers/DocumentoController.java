@@ -32,4 +32,11 @@ public class DocumentoController {
         serviceI.alterar(id, dto);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> apagar(@PathVariable Long id){
+        serviceI.apagar(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 }
