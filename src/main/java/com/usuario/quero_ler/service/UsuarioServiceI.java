@@ -11,5 +11,6 @@ public interface UsuarioServiceI {
     Usuario getUsuario(Long id);
     void atualizar(Long id, UsuarioAtualizadoLeitorReguest dto);
     void atualizar(Long id, UsuarioAtualizadoAdministradorReguest dto);
+    void alterarSenha(Long id, UsuarioAlterarSenhaReguest dto);
     void excluirPerfil(Long id);
 }

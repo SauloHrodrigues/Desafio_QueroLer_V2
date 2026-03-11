@@ -30,6 +30,11 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @PutMapping("/{id}/alterar-senha")
+    public ResponseEntity<Void> alterarSenha(@PathVariable Long id, @RequestBody @Valid UsuarioAlterarSenhaReguest dto) {
+        serviceI.alterarSenha(id, dto);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
     @PutMapping("/{id}")
     public ResponseEntity<Void> alterar(@PathVariable Long id, @RequestBody @Valid UsuarioAtualizadoLeitorReguest dto) {
         serviceI.atualizar(id, dto);
