@@ -6,11 +6,13 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(EmailNaoCadastradoException.class)
@@ -57,5 +59,29 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handlerUsuarioSemPermissaoParaAcaoException(UsuarioSemPermissaoParaAcaoException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
+   @ExceptionHandler(UsuarioComPerfilInvalidoException.class)
+    public ResponseEntity<Object> handlerUsuarioComPerfilInvalidoException(UsuarioComPerfilInvalidoException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
 
+    @ExceptionHandler(EnumInvalidoException.class)
+    public ResponseEntity<String> handleEnumInvalido(EnumInvalidoException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<Object> handleEnumError(HttpMessageNotReadableException ex) {
+
+        if (ex.getCause() instanceof com.fasterxml.jackson.databind.exc.InvalidFormatException e
+                && e.getTargetType().isEnum()) {
+
+            Object[] valores = e.getTargetType().getEnumConstants();
+
+            String mensagem = "Valor inválido. Valores permitidos: " + Arrays.toString(valores);
+
+            return ResponseEntity.badRequest().body(mensagem);
+        }
+
+        return ResponseEntity.badRequest().body("Erro ao interpretar JSON.");
+    }
 }

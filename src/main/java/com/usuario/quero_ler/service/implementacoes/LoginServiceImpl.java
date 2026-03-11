@@ -3,6 +3,7 @@ package com.usuario.quero_ler.service.implementacoes;
 import com.usuario.quero_ler.dtos.LoginRequestDto;
 import com.usuario.quero_ler.dtos.UsuarioRequestDto;
 import com.usuario.quero_ler.enuns.UsuarioProfile;
+import com.usuario.quero_ler.exceptions.especies.UsuarioComPerfilInvalidoException;
 import com.usuario.quero_ler.exceptions.especies.UsuarioNaoAutenticadoException;
 import com.usuario.quero_ler.repository.UserRepository;
 import com.usuario.quero_ler.service.LoginServiceI;
@@ -36,23 +37,19 @@ public class LoginServiceImpl implements LoginServiceI {
         User user = repository.findByUserIgnoreCase(dto.user()).orElseThrow(
                 () -> new RuntimeException("Usuario não cadastrado.")
         );
+
+        if(!user.getProfile().equals(dto.profile())){
+            throw new UsuarioComPerfilInvalidoException("Perfil inválido");
+        }
+
         Boolean senhaValida = Senhas.validar(dto.senha(), user.getSenha());
+
         if (senhaValida) {
             logado = user;
         } else {
             throw new RuntimeException("Senha invalida.");
         }
     }
-//
-//    @Override
-//    public User validarLogin(Long id){
-//        if(id == logado.getId()){
-//            return logado;
-//        } else {
-//            throw new UsuarioNaoAutenticadoException("Usuario não logado!");
-//        }
-//
-//    }
 
     @Override
     public User validarLogin(){
@@ -61,7 +58,6 @@ public class LoginServiceImpl implements LoginServiceI {
         } else {
             throw new UsuarioNaoAutenticadoException("Usuario não logado!");
         }
-
     }
     @Override
     public Boolean validarLogin(User user) {
