@@ -44,27 +44,24 @@ public class LoginServiceImpl implements LoginServiceI {
 
         Boolean senhaValida = Senhas.validar(dto.senha(), user.getSenha());
 
-        if (senhaValida) {
-            logado = user;
-        } else {
+        if (!senhaValida) {
             throw new RuntimeException("Senha invalida.");
         }
+            logado = user;
     }
 
     @Override
     public User validarLogin(){
-        if(logado != null){
-            return logado;
-        } else {
+        if(logado == null){
             throw new UsuarioNaoAutenticadoException("Usuario não logado!");
         }
+        return logado;
     }
     @Override
     public Boolean validarLogin(User user) {
-        if (logado!= null && user.getUser().equalsIgnoreCase(logado.getUser())) {
-            return true;
-        } else  {
+        if (!(logado!= null && user.getId().equals(logado.getId()))) {
             throw new UsuarioNaoAutenticadoException("Usuário não logado. ");
         }
+        return true;
     }
 }
