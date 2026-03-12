@@ -1,6 +1,4 @@
-package com.usuario.quero_ler.dtos;
-
-import java.time.LocalDate;
+package com.usuario.quero_ler.dtos.usuario;
 
 public record UsuarioAlterarSenhaReguest(
         String senhaAtual,

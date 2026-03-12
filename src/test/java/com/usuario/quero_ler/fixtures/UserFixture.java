@@ -1,6 +1,6 @@
 package com.usuario.quero_ler.fixtures;
 
-import com.usuario.quero_ler.dtos.UsuarioRequestDto;
+import com.usuario.quero_ler.dtos.usuario.UsuarioRequestDto;
 import com.usuario.quero_ler.enuns.UsuarioProfile;
 import com.usuario.quero_ler.models.User;
 import com.usuario.quero_ler.models.Usuario;
@@ -43,6 +43,7 @@ public class UserFixture {
         usuario.setCpf(CPF);
         usuario.setDataDeNascimento(DATA_DE_NASCIMENTO);
         usuario.setAceitarTermos(CHECK_TERMO);
+        usuario.setUser(user);
         return usuario;
     }
 

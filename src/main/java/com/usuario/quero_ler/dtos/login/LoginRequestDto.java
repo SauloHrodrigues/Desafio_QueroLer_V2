@@ -1,4 +1,4 @@
-package com.usuario.quero_ler.dtos;
+package com.usuario.quero_ler.dtos.login;
 
 import com.usuario.quero_ler.enuns.UsuarioProfile;
 

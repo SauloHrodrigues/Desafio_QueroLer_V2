@@ -1,4 +1,4 @@
-package com.usuario.quero_ler.dtos;
+package com.usuario.quero_ler.dtos.notificacao;
 
 import java.time.LocalDateTime;
 

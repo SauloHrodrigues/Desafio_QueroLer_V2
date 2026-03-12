@@ -1,8 +1,8 @@
 package com.usuario.quero_ler.service;
 
-import com.usuario.quero_ler.dtos.DocumentoAlteracoesDto;
-import com.usuario.quero_ler.dtos.DocumentoRequestDto;
-import com.usuario.quero_ler.dtos.DocumentoResponseDto;
+import com.usuario.quero_ler.dtos.documento.DocumentoAlteracoesDto;
+import com.usuario.quero_ler.dtos.documento.DocumentoRequestDto;
+import com.usuario.quero_ler.dtos.documento.DocumentoResponseDto;
 
 public interface DocumentoServiceI {
     DocumentoResponseDto criar(DocumentoRequestDto dto);

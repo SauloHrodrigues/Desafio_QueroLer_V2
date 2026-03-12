@@ -1,7 +1,8 @@
 package com.usuario.quero_ler.service.implementacoes;
 
-import com.usuario.quero_ler.dtos.NotificacaoRequestDto;
-import com.usuario.quero_ler.dtos.NotificacaoResponseDto;
+import com.usuario.quero_ler.dtos.notificacao.NotificacaoRequestDto;
+import com.usuario.quero_ler.dtos.notificacao.NotificacaoResponseDto;
+import com.usuario.quero_ler.mappers.NotificacaoMapper;
 import com.usuario.quero_ler.models.Notificacao;
 import com.usuario.quero_ler.models.Usuario;
 import com.usuario.quero_ler.repository.NotificacaoRepository;
@@ -27,22 +28,21 @@ public class NotificacaoServiceImpl implements NotificacaoServiceI {
     private final LoginServiceI login;
     private final UsuarioServiceI usuarioServiceI;
     private final UsuarioNotificacaoRepository usuarioNotificacaoRepository;
+    private final NotificacaoMapper mapper;
 
     @Transactional
     @Override
     public NotificacaoResponseDto criar(NotificacaoRequestDto dto) {
-        Notificacao notificacao = new Notificacao();
-        notificacao.setNotificacao(dto.notificacao());
-        notificacao.setDataDeCriacao(LocalDateTime.now());
+        Notificacao notificacao = mapper.toEntity(dto);
         notificacao = repository.save(notificacao);
         usuarioNotificacaoRepository.enviarParaTodosUsuarios(notificacao.getId());
-        return null;
+        return mapper.toResponse(notificacao);
     }
 
     @Transactional
     @Override
     public Page<NotificacaoResponseDto> naoLidas(Long idUsuario, Pageable pageable) {
-        apagarNotificacoes();
+        apagarNotificacoesComMaisDe30Dias();
         Usuario usuario = usuarioServiceI.getUsuario(idUsuario);
         login.validarLogin(usuario.getUser());
         List<Notificacao> usuarioNotificacaos = usuarioNotificacaoRepository.buscarNotificacoesNaoLidas(idUsuario);
@@ -57,14 +57,14 @@ public class NotificacaoServiceImpl implements NotificacaoServiceI {
     @Transactional
     @Override
     public void marcarComoLidas(Long idUsuario) {
-        apagarNotificacoes();
+        apagarNotificacoesComMaisDe30Dias();
         Usuario usuario = usuarioServiceI.getUsuario(idUsuario);
         login.validarLogin(usuario.getUser());
         usuarioNotificacaoRepository.marcarComoLidas(idUsuario);
     }
 
     @Transactional
-    public void apagarNotificacoes() {
+    public void apagarNotificacoesComMaisDe30Dias() {
         LocalDateTime dataDeCorte = LocalDateTime.now().minusDays(30);
         usuarioNotificacaoRepository.deleteByNotificacaoDataDeCriacaoBefore(dataDeCorte);
         repository.deleteByDataDeCriacaoBefore(dataDeCorte);

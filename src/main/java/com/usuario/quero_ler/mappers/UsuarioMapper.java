@@ -1,6 +1,6 @@
 package com.usuario.quero_ler.mappers;
 
-import com.usuario.quero_ler.dtos.*;
+import com.usuario.quero_ler.dtos.usuario.*;
 import com.usuario.quero_ler.models.Usuario;
 import org.springframework.stereotype.Component;
 

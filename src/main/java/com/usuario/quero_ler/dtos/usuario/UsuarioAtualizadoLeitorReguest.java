@@ -1,8 +1,8 @@
-package com.usuario.quero_ler.dtos;
+package com.usuario.quero_ler.dtos.usuario;
 
 import java.time.LocalDate;
 
-public record UsuarioDadosResponse(
+public record UsuarioAtualizadoLeitorReguest(
         String nome,
         String email,
         LocalDate dataDeNascimento,
@@ -10,5 +10,4 @@ public record UsuarioDadosResponse(
         String estado,
         String pais,
         byte[] foto
-) {
-}
+) {}

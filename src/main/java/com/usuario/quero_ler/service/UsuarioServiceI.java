@@ -1,7 +1,7 @@
 
 package com.usuario.quero_ler.service;
 
-import com.usuario.quero_ler.dtos.*;
+import com.usuario.quero_ler.dtos.usuario.*;
 import com.usuario.quero_ler.models.Usuario;
 
 public interface UsuarioServiceI {

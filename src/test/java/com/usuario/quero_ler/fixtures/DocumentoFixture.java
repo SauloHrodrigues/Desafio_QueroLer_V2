@@ -1,7 +1,7 @@
 package com.usuario.quero_ler.fixtures;
 
-import com.usuario.quero_ler.dtos.DocumentoRequestDto;
-import com.usuario.quero_ler.dtos.DocumentoResponseDto;
+import com.usuario.quero_ler.dtos.documento.DocumentoRequestDto;
+import com.usuario.quero_ler.dtos.documento.DocumentoResponseDto;
 import com.usuario.quero_ler.enuns.DocumentoTipo;
 import com.usuario.quero_ler.models.Documento;
 

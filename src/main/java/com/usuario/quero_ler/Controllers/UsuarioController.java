@@ -1,6 +1,6 @@
 package com.usuario.quero_ler.Controllers;
 
-import com.usuario.quero_ler.dtos.*;
+import com.usuario.quero_ler.dtos.usuario.*;
 import com.usuario.quero_ler.service.UsuarioServiceI;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

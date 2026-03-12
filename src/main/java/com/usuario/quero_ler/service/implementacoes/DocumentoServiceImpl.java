@@ -1,13 +1,12 @@
 package com.usuario.quero_ler.service.implementacoes;
 
-import com.usuario.quero_ler.dtos.DocumentoAlteracoesDto;
-import com.usuario.quero_ler.dtos.DocumentoRequestDto;
-import com.usuario.quero_ler.dtos.DocumentoResponseDto;
-import com.usuario.quero_ler.dtos.NotificacaoRequestDto;
+import com.usuario.quero_ler.dtos.documento.DocumentoAlteracoesDto;
+import com.usuario.quero_ler.dtos.documento.DocumentoRequestDto;
+import com.usuario.quero_ler.dtos.documento.DocumentoResponseDto;
+import com.usuario.quero_ler.dtos.notificacao.NotificacaoRequestDto;
 import com.usuario.quero_ler.enuns.DocumentoTipo;
 import com.usuario.quero_ler.enuns.UsuarioProfile;
 import com.usuario.quero_ler.exceptions.especies.DocumentoNaoEncontradoException;
-import com.usuario.quero_ler.exceptions.especies.DocumentoNaoPodeSerDeletadoException;
 import com.usuario.quero_ler.exceptions.especies.UsuarioSemPermissaoParaAcaoException;
 import com.usuario.quero_ler.mappers.DocumentoMapper;
 import com.usuario.quero_ler.models.Documento;

@@ -1,6 +1,6 @@
 package com.usuario.quero_ler.fixtures;
 
-import com.usuario.quero_ler.dtos.LoginRequestDto;
+import com.usuario.quero_ler.dtos.login.LoginRequestDto;
 import com.usuario.quero_ler.enuns.UsuarioProfile;
 
 public class LoginFixture {

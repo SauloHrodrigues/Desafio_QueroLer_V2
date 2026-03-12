@@ -1,6 +1,6 @@
 package com.usuario.quero_ler.service.implementacoes;
 
-import com.usuario.quero_ler.dtos.*;
+import com.usuario.quero_ler.dtos.usuario.*;
 import com.usuario.quero_ler.enuns.UsuarioProfile;
 import com.usuario.quero_ler.exceptions.especies.UsuarioNaoEncontradoException;
 import com.usuario.quero_ler.exceptions.especies.UsuarioSemPermissaoParaAcaoException;
@@ -8,7 +8,6 @@ import com.usuario.quero_ler.mappers.UsuarioMapper;
 import com.usuario.quero_ler.models.User;
 import com.usuario.quero_ler.models.Usuario;
 import com.usuario.quero_ler.repository.UserRepository;
-import com.usuario.quero_ler.repository.UsuarioNotificacaoRepository;
 import com.usuario.quero_ler.repository.UsuarioRepository;
 import com.usuario.quero_ler.service.LoginServiceI;
 import com.usuario.quero_ler.service.UsuarioServiceI;

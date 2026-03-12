@@ -1,7 +1,7 @@
 package com.usuario.quero_ler.Controllers;
 
-import com.usuario.quero_ler.dtos.NotificacaoRequestDto;
-import com.usuario.quero_ler.dtos.NotificacaoResponseDto;
+import com.usuario.quero_ler.dtos.notificacao.NotificacaoRequestDto;
+import com.usuario.quero_ler.dtos.notificacao.NotificacaoResponseDto;
 import com.usuario.quero_ler.service.NotificacaoServiceI;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
