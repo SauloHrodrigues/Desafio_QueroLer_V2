@@ -40,43 +40,28 @@ public class DocumentoServiceImpl implements DocumentoServiceI {
     public void alterar(Long id, DocumentoAlteracoesDto dto) {
         validarUsuario();
         Documento documento = repository.findById(id).orElseThrow(
-                ()-> new DocumentoNaoEncontradoException("Documento não cadastrado.")
+                () -> new DocumentoNaoEncontradoException("Documento não cadastrado.")
         );
-        documento = mapper.toUpdate(documento,dto);
+        documento = mapper.toUpdate(documento, dto);
         gerarNonificacao("documento alterado");
         documento = repository.save(documento);
     }
 
     @Override
     public DocumentoResponseDto getTermosGeraisDeUso() {
-        return null;
+        validarUsuario();
+        Documento documento = repository.findTopByTipoOrderByDataAlteracaoDesc(DocumentoTipo.TERMOS_GERAIS_DE_USO);
+        return mapper.toResponse(documento);
     }
 
-    @Override
-    public void apagar(Long id){
-        User user = login.validarLogin();
-        if(!user.getProfile().equals(UsuarioProfile.ADMINISTRADOR)){
-            throw new UsuarioSemPermissaoParaAcaoException("Apenas administradores podem executar esta ação.");
-        }
-        Documento documento = repository.findById(id).orElseThrow(
-                ()-> new DocumentoNaoEncontradoException("Documento não encontrado.")
-        );
-
-        if(documento.getTipo().equals(DocumentoTipo.TERMOS_GERAIS_DE_USO)){
-            throw new DocumentoNaoPodeSerDeletadoException("O documento é TERMOS GERAIS DE USO, não pode ser apagado.");
-        }
-
-        repository.delete(documento);
-    }
-
-    protected void gerarNonificacao(String texto){
+    protected void gerarNonificacao(String texto) {
         notificacaoServiceI.criar(new NotificacaoRequestDto(texto));
     }
 
     protected void validarUsuario() {
         User user = login.validarLogin();
         if (!user.getProfile().equals(UsuarioProfile.ADMINISTRADOR)) {
-            throw new UsuarioSemPermissaoParaAcaoException("Você não tem permissão para realizar essa ação.");
+            throw new UsuarioSemPermissaoParaAcaoException("Apenas administradores podem executar esta ação.");
         }
     }
 }
