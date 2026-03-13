@@ -1,6 +1,6 @@
 package com.usuario.quero_ler.fixtures;
 
-import com.usuario.quero_ler.dtos.usuario.UsuarioRequestDto;
+import com.usuario.quero_ler.dtos.usuario.*;
 import com.usuario.quero_ler.enuns.UsuarioProfile;
 import com.usuario.quero_ler.models.User;
 import com.usuario.quero_ler.models.Usuario;
@@ -23,10 +23,16 @@ public class UserFixture {
     private static final String PAIS = "Brasil";
     private static final byte[] FOTO = null;
 
-
     public static UsuarioRequestDto  requestDto(){
         return new UsuarioRequestDto(
-                NOME,EMAIL,CONFIRMAR_EMAIL,SENHA,CONFIRMAR_SENHA,CPF,DATA_DE_NASCIMENTO,CHECK_TERMO
+                NOME,EMAIL,CONFIRMAR_EMAIL,SENHA,CONFIRMAR_SENHA,CPF,
+                DATA_DE_NASCIMENTO,CHECK_TERMO
+        );
+    }
+
+    public static UsuarioDadosComplementarRequest requestDadosComplementares(){
+        return new UsuarioDadosComplementarRequest(
+                CIDADE,ESTADO,PAIS,FOTO
         );
     }
 
@@ -55,4 +61,39 @@ public class UserFixture {
         usuario.setFoto(FOTO);
         return usuario;
     }
+
+    public static UsuarioResponseDto response(Usuario user){
+        return new UsuarioResponseDto(
+                user.getId(), user.getNome(), user.getEmail(), user.getCpf(),
+                user.getUser().getProfile(),user.getDataDeNascimento(),user.getAceitarTermos(),
+                user.getCidade(), user.getEstado(), user.getPais(), user.getFoto()
+        );
+    }
+    public static UsuarioDadosResponse responseDados(Usuario user){
+        return new UsuarioDadosResponse(
+                user.getNome(), user.getEmail(),user.getDataDeNascimento(),
+                user.getCidade(), user.getEstado(), user.getPais(), user.getFoto()
+        );
+    }
+
+    public static Usuario atualizar(Usuario usuario, UsuarioAtualizadoAdministradorReguest atualizacoes){
+        usuario.setDataDeNascimento(atualizacoes.dataDeNascimento() != null ? atualizacoes.dataDeNascimento() : usuario.getDataDeNascimento());
+        usuario.setCidade(atualizacoes !=null ? atualizacoes.cidade() : usuario.getCidade());
+        usuario.setEstado(atualizacoes.estado() != null ? atualizacoes.estado() : usuario.getEstado());
+        usuario.setPais(atualizacoes.pais() != null ? atualizacoes.pais() : usuario.getPais());
+        usuario.setFoto(atualizacoes.foto() != null ? atualizacoes.foto() : usuario.getFoto());
+        return usuario;
+    }
+
+    public static Usuario atualizar(Usuario usuario, UsuarioAtualizadoLeitorReguest atualizacoes){
+        usuario.setNome(atualizacoes.nome()!= null ? atualizacoes.nome() : usuario.getNome());
+        usuario.setEmail(atualizacoes.email()!= null ? atualizacoes.email() : usuario.getEmail());
+        usuario.setDataDeNascimento(atualizacoes.dataDeNascimento() != null ? atualizacoes.dataDeNascimento() : usuario.getDataDeNascimento());
+        usuario.setCidade(atualizacoes.cidade() != null ? atualizacoes.cidade() : usuario.getCidade());
+        usuario.setEstado(atualizacoes.estado() != null ? atualizacoes.estado() : usuario.getEstado());
+        usuario.setPais(atualizacoes.pais() != null ? atualizacoes.pais() : usuario.getPais());
+        usuario.setFoto(atualizacoes.foto() != null ? atualizacoes.foto() : usuario.getFoto());
+        return usuario;
+    }
+
 }

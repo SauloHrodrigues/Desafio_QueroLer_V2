@@ -40,7 +40,7 @@ public class UsuarioServiceImpl implements UsuarioServiceI {
         Usuario usuario = getUsuario(id);
         if (login.validarLogin(usuario.getUser())) {
             usuario = mapper.complementarCadastro(usuario, dto);
-            repository.save(usuario);
+            usuario = repository.save(usuario);
         }
     }
 
@@ -56,14 +56,16 @@ public class UsuarioServiceImpl implements UsuarioServiceI {
     public void atualizar(Long id, UsuarioAtualizadoLeitorReguest dto) {
         Usuario usuario = getUsuario(id);
         login.validarLogin(usuario.getUser());
-        mapper.update(usuario, dto);
+        usuario = mapper.update(usuario, dto);
+        usuario = repository.save(usuario);
     }
 
     @Override
     public void atualizar(Long id, UsuarioAtualizadoAdministradorReguest dto) {
         Usuario usuario = getUsuario(id);
         login.validarLogin(usuario.getUser());
-        mapper.update(usuario, dto);
+        usuario = mapper.update(usuario, dto);
+        repository.save(usuario);
     }
 
     @Override
@@ -80,12 +82,13 @@ public class UsuarioServiceImpl implements UsuarioServiceI {
     @Override
     public void alterarSenha(Long id, UsuarioAlterarSenhaReguest dto) {
         Senhas.validar(dto.senhaNova());
-       User user = login.validarLogin();
-        Senhas.validar(dto.senhaAtual(),user.getSenha());
+        Usuario usuario = getUsuario(id);
+        login.validarLogin(usuario.getUser());
+        User user = login.validarLogin();
+        Senhas.validar(dto.senhaAtual(), user.getSenha());
         String novaSenha = Senhas.gerar(dto.senhaNova());
         user.setSenha(novaSenha);
-        user= userRepository.save(user);
-        // TODO
+        user = userRepository.save(user);
     }
 
     public Usuario getUsuario(Long id) {
