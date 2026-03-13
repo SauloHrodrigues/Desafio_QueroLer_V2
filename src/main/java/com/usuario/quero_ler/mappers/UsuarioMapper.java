@@ -25,27 +25,14 @@ public class UsuarioMapper {
     }
 
     public Usuario update(Usuario usuario, UsuarioAtualizadoLeitorReguest dto) {
-        if (dto.nome() != null) {
-            usuario.setNome(dto.nome());
-        }
-        if (dto.email() != null) {
-            usuario.setEmail(dto.email());
-        }
-        if (dto.dataDeNascimento() != null) {
-            usuario.setDataDeNascimento(dto.dataDeNascimento());
-        }
-        if (dto.cidade() != null) {
-            usuario.setCidade(dto.cidade());
-        }
-        if (dto.estado() != null) {
-            usuario.setEstado(dto.estado());
-        }
-        if (dto.pais() != null) {
-            usuario.setPais(dto.pais());
-        }
-        if (dto.foto() != null) {
-            usuario.setFoto(dto.foto());
-        }
+        usuario.setNome(dto.nome() != null ? dto.nome() :   usuario.getNome());
+        usuario.setEmail(dto.email() != null ? dto.email() : usuario.getEmail());
+        usuario.setDataDeNascimento(dto.dataDeNascimento() != null ? dto.dataDeNascimento(): usuario.getDataDeNascimento());
+        usuario.setCidade(dto.cidade()!=null ? dto.cidade() : usuario.getCidade());
+        usuario.setEstado(dto.estado()!=null? dto.estado() : usuario.getEstado());
+        usuario.setPais(dto.pais() !=null? dto.pais() : usuario.getPais());
+        usuario.setPais(dto.pais() != null ? dto.pais(): usuario.getPais());
+        usuario.setFoto(dto.foto() != null ? dto.foto() : usuario.getFoto());
         return usuario;
     }
 
