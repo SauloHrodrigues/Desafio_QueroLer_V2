@@ -18,17 +18,17 @@ public class NotificacaoController {
     private final NotificacaoServiceI serviceI;
 
     @PostMapping
-    public ResponseEntity<NotificacaoResponseDto> criar(@RequestBody @Valid NotificacaoRequestDto dto){
+    public ResponseEntity<NotificacaoResponseDto> criar(@RequestBody @Valid NotificacaoRequestDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(serviceI.criar(dto));
     }
 
     @GetMapping("/{id}/usuario")
     public ResponseEntity<Page<NotificacaoResponseDto>> naoLidas(@PathVariable Long id, Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.OK).body(serviceI.naoLidas(id,pageable));
+        return ResponseEntity.status(HttpStatus.OK).body(serviceI.naoLidas(id, pageable));
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<Void> marcarComoLidas(@PathVariable Long id){
+    ResponseEntity<Void> marcarComoLidas(@PathVariable Long id) {
         serviceI.marcarComoLidas(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
