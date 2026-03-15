@@ -113,13 +113,13 @@ class DocumentoServiceImplTest {
         DocumentoResponseDto reponse = DocumentoFixture.responseDto(documento);
 
         when(loginService.validarLogin()).thenReturn(user);
-        when(repository.findTopByTipoOrderByDataAlteracaoDesc(DocumentoTipo.TERMOS_GERAIS_DE_USO)).thenReturn(documento);
+        when(repository.findTopByTipoOrderByUltimaAlteracaoDesc(DocumentoTipo.TERMOS_GERAIS_DE_USO)).thenReturn(documento);
         when(mapper.toResponse(documento)).thenReturn(reponse);
 
         DocumentoResponseDto resposta = service.getTermosGeraisDeUso();
 
         assertEquals(DocumentoTipo.TERMOS_GERAIS_DE_USO, resposta.tipo());
-        verify(repository).findTopByTipoOrderByDataAlteracaoDesc(DocumentoTipo.TERMOS_GERAIS_DE_USO);
+        verify(repository).findTopByTipoOrderByUltimaAlteracaoDesc(DocumentoTipo.TERMOS_GERAIS_DE_USO);
     }
 
     @Test

@@ -3,9 +3,10 @@ package com.usuario.quero_ler.mappers;
 import com.usuario.quero_ler.dtos.notificacao.NotificacaoRequestDto;
 import com.usuario.quero_ler.dtos.notificacao.NotificacaoResponseDto;
 import com.usuario.quero_ler.models.Notificacao;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-
+@Component
 public class NotificacaoMapper {
 
     public Notificacao toEntity(NotificacaoRequestDto dto){

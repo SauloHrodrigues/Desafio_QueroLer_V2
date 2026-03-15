@@ -49,7 +49,7 @@ public class DocumentoServiceImpl implements DocumentoServiceI {
     @Override
     public DocumentoResponseDto getTermosGeraisDeUso() {
         validarUsuario();
-        Documento documento = repository.findTopByTipoOrderByDataAlteracaoDesc(DocumentoTipo.TERMOS_GERAIS_DE_USO);
+        Documento documento = repository.findTopByTipoOrderByUltimaAlteracaoDesc(DocumentoTipo.TERMOS_GERAIS_DE_USO);
         return mapper.toResponse(documento);
     }
 

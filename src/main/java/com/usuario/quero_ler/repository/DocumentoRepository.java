@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DocumentoRepository extends JpaRepository<Documento, Long> {
-    Documento findTopByTipoOrderByDataAlteracaoDesc(DocumentoTipo tipo);
+    Documento findTopByTipoOrderByUltimaAlteracaoDesc(DocumentoTipo tipo);
 }
