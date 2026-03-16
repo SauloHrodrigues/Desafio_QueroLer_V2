@@ -12,32 +12,35 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface UsuarioNotificacaoRepository extends JpaRepository<UsuarioNotificacao,Long> {
+public interface UsuarioNotificacaoRepository extends JpaRepository<UsuarioNotificacao, Long> {
     @Modifying
     @Query(value = """
-    INSERT INTO tb_usuario_notificacao (usuario_id, notificacao_id, visualizada)
-    SELECT u.id, :notificacaoId, false
-    FROM tb_usuario u
-""", nativeQuery = true)
+                INSERT INTO tb_usuario_notificacao (usuario_id, notificacao_id, visualizada)
+                SELECT u.id, :notificacaoId, false
+                FROM tb_usuario u
+            """, nativeQuery = true)
     void enviarParaTodosUsuarios(Long notificacaoId);
 
 
     @Query("""
-    SELECT un.notificacao
-    FROM UsuarioNotificacao un
-    WHERE un.usuario.id = :usuarioId
-    AND (un.visualizada = false OR un.visualizada IS NULL)
-""")
+                SELECT un.notificacao
+                FROM UsuarioNotificacao un
+                WHERE un.usuario.id = :usuarioId
+                AND (un.visualizada = false OR un.visualizada IS NULL)
+            """)
     List<Notificacao> buscarNotificacoesNaoLidas(@Param("usuarioId") Long usuarioId);
 
     @Modifying
     @Query("""
-       UPDATE UsuarioNotificacao un
-       SET un.visualizada = true,
-           un.dataLeitura = CURRENT_TIMESTAMP
-       WHERE un.usuario.id = :usuarioId
-       AND un.visualizada = false
-       """)
+            UPDATE UsuarioNotificacao un
+            SET un.visualizada = true,
+                un.dataLeitura = CURRENT_TIMESTAMP
+            WHERE un.usuario.id = :usuarioId
+            AND un.visualizada = false
+            """)
     void marcarComoLidas(@Param("usuarioId") Long usuarioId);
+
     void deleteByNotificacaoDataDeCriacaoBefore(LocalDateTime data);
+
+    List<UsuarioNotificacao> findByUsuarioId(Long usuarioId);
 }

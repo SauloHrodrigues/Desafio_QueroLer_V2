@@ -7,7 +7,9 @@ import com.usuario.quero_ler.exceptions.especies.UsuarioSemPermissaoParaAcaoExce
 import com.usuario.quero_ler.mappers.UsuarioMapper;
 import com.usuario.quero_ler.models.User;
 import com.usuario.quero_ler.models.Usuario;
+import com.usuario.quero_ler.models.UsuarioNotificacao;
 import com.usuario.quero_ler.repository.UserRepository;
+import com.usuario.quero_ler.repository.UsuarioNotificacaoRepository;
 import com.usuario.quero_ler.repository.UsuarioRepository;
 import com.usuario.quero_ler.service.LoginServiceI;
 import com.usuario.quero_ler.service.UsuarioServiceI;
@@ -16,6 +18,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class UsuarioServiceImpl implements UsuarioServiceI {
@@ -23,6 +27,7 @@ public class UsuarioServiceImpl implements UsuarioServiceI {
     private final UsuarioRepository repository;
     private final UserRepository userRepository;
     private final UsuarioMapper mapper;
+    private final UsuarioNotificacaoRepository usuarioNotificacaoRepository;
 
     @Transactional
     @Override
@@ -73,6 +78,10 @@ public class UsuarioServiceImpl implements UsuarioServiceI {
         Usuario usuario = getUsuario(id);
         login.validarLogin(usuario.getUser());
         if (usuario.getUser().getProfile().equals(UsuarioProfile.LEITOR)) {
+            List<UsuarioNotificacao> notificacoes = usuarioNotificacaoRepository.findByUsuarioId(id);
+            for (UsuarioNotificacao un : notificacoes) {
+                usuarioNotificacaoRepository.delete(un);
+            }
             repository.delete(usuario);
         } else {
             throw new UsuarioSemPermissaoParaAcaoException("Ação não permitida para este usuário.");
