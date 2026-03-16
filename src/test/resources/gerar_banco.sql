@@ -36,18 +36,11 @@ CREATE TABLE tb_usuario (
 );
 
 INSERT INTO tb_usuario (
-    nome, email, cpf, data_nascimento, aceite_termos, cidade, estado, pais, user_id
-) VALUES (
-             'Administrador',
-             'admin@email.com',
-             '00000000000',
-             '1990-01-01',
-             TRUE,
-             'Campinas',
-             'SP',
-             'Brasil',
-             1
-         );
+    nome, email, cpf, data_nascimento, aceite_termos, cidade, estado, pais, user_id)
+VALUES ('Administrador','admin@email.com','64343764052','1990-01-01',
+             TRUE,'Campinas','SP','Brasil',1),
+       ('leitor','leitor@email.com','01803138009','1990-01-01',
+        TRUE,'Campinas','SP','Brasil',2);
 
 
 CREATE TABLE tb_notificacao (
@@ -57,7 +50,8 @@ CREATE TABLE tb_notificacao (
 );
 
 INSERT INTO tb_notificacao (data_de_criacao, notificacao)
-VALUES ('2026-03-13 09:00:00', 'Bem-vindo ao sistema');
+VALUES (CURRENT_TIMESTAMP, 'Bem-vindo ao sistema'),
+       (CURRENT_TIMESTAMP, 'Alterado o termo gerais');
 
 
 CREATE TABLE tb_usuario_notificacao (
@@ -75,6 +69,10 @@ CREATE TABLE tb_usuario_notificacao (
                                             FOREIGN KEY (notificacao_id)
                                                 REFERENCES tb_notificacao(id)
 );
+INSERT INTO tb_usuario_notificacao (usuario_id, notificacao_id, visualizada, data_leitura)
+VALUES
+    (2, 1, false, null),
+    (2, 2, true, null);
 
 
 CREATE TABLE tb_documento (

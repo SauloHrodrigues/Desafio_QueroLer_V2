@@ -9,4 +9,5 @@ public interface NotificacaoServiceI {
     NotificacaoResponseDto criar(NotificacaoRequestDto dto);
     Page<NotificacaoResponseDto> naoLidas(Long id,Pageable pageable);
     void marcarComoLidas(Long idUsuario);
+
 }

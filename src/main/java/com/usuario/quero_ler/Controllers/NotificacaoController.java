@@ -17,11 +17,6 @@ import org.springframework.web.bind.annotation.*;
 public class NotificacaoController {
     private final NotificacaoServiceI serviceI;
 
-    @PostMapping
-    public ResponseEntity<NotificacaoResponseDto> criar(@RequestBody @Valid NotificacaoRequestDto dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(serviceI.criar(dto));
-    }
-
     @GetMapping("/{id}/usuario")
     public ResponseEntity<Page<NotificacaoResponseDto>> naoLidas(@PathVariable Long id, Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(serviceI.naoLidas(id, pageable));
