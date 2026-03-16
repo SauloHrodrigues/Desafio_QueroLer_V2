@@ -31,7 +31,7 @@ public class DocumentoServiceImpl implements DocumentoServiceI {
         validarUsuario();
         Documento documento = mapper.toEntity(dto);
         documento = repository.save(documento);
-        gerarNonificacao("Documento criado");
+        gerarNonificacao(documento.getTipo().name());
         return mapper.toResponse(documento);
     }
 
@@ -42,7 +42,7 @@ public class DocumentoServiceImpl implements DocumentoServiceI {
                 () -> new DocumentoNaoEncontradoException("Documento não cadastrado.")
         );
         documento = mapper.toUpdate(documento, dto);
-        gerarNonificacao("documento alterado");
+        gerarNonificacao(documento.getTipo().name());
         documento = repository.save(documento);
     }
 
