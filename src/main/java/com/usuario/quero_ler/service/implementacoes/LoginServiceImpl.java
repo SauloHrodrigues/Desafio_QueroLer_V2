@@ -41,9 +41,9 @@ public class LoginServiceImpl implements LoginServiceI {
                 () -> new UsuarioNaoEncontradoException("Usuario não cadastrado.")
         );
 
-        if (!user.getProfile().equals(dto.profile())) {
-            throw new UsuarioComPerfilInvalidoException("Perfil inválido");
-        }
+//        if (!user.getProfile().equals(dto.profile())) {
+//            throw new UsuarioComPerfilInvalidoException("Perfil inválido");
+//        }
 
         Boolean senhaValida = Senhas.validar(dto.senha(), user.getSenha());
 
