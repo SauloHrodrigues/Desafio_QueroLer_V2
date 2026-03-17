@@ -65,4 +65,7 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<UsuarioNotificacao> notificacoes;
+
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<UsuarioLivro> livros;
 }
