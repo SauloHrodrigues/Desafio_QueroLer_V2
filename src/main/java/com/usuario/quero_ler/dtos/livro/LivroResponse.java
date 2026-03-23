@@ -14,7 +14,7 @@ public record LivroResponse(
         Integer numeroDePaginas,
         LivroIdioma idioma,
         String sinopse,
-        byte[] capaDoLivro,
+        String capaUrl,
         List<AutorResponse> autores
 
 ) {

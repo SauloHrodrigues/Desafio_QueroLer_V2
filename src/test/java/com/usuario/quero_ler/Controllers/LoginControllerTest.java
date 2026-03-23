@@ -32,7 +32,7 @@ class LoginControllerTest {
     @Test
     @DisplayName("Deve realizar um login com sucesso")
     void deveRealizarLoginComSucesso() throws Exception {
-        LoginRequestDto request = LoginFixture.requestDto(UsuarioProfile.LEITOR);
+        LoginRequestDto request = LoginFixture.requestDto();
 
         mockMvc.perform(post("/logins")
                         .contentType(MediaType.APPLICATION_JSON)

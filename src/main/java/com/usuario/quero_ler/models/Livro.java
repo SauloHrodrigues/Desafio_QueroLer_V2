@@ -3,7 +3,9 @@ package com.usuario.quero_ler.models;
 import com.usuario.quero_ler.enuns.LivroIdioma;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,8 @@ public class Livro {
     private LivroIdioma idioma;
     @Column(name = "sinopse", nullable = false)
     private String sinopse;
-    @Column(name = "capa", columnDefinition = "BYTEA")
+
+    @Column(name = "capa")
     private byte[] capaDoLivro;
 
     @ManyToMany

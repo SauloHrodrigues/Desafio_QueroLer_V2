@@ -7,7 +7,7 @@ public class LoginFixture {
     private static final String NOME = "Nome SobreNome";
     private static final String SENHA = "Teste123&";
 
-    public static LoginRequestDto requestDto(UsuarioProfile profile) {
-        return new LoginRequestDto(NOME, SENHA, profile);
+    public static LoginRequestDto requestDto() {
+        return new LoginRequestDto(NOME, SENHA);
     }
 }

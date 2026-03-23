@@ -32,7 +32,7 @@ public class NotificacaoTest {
 
     @BeforeEach
     void setUp() {
-        LoginRequestDto autenticacaoDto = new LoginRequestDto("leitor", "Teste123&", UsuarioProfile.LEITOR);
+        LoginRequestDto autenticacaoDto = new LoginRequestDto("leitor", "Teste123&");
         template.postForEntity("/logins", autenticacaoDto, Void.class);
     }
 

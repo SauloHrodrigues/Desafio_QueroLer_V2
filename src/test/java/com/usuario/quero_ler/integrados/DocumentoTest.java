@@ -7,6 +7,7 @@ import com.usuario.quero_ler.dtos.login.LoginRequestDto;
 import com.usuario.quero_ler.enuns.DocumentoTipo;
 import com.usuario.quero_ler.enuns.UsuarioProfile;
 import com.usuario.quero_ler.fixtures.DocumentoFixture;
+import com.usuario.quero_ler.fixtures.LoginFixture;
 import com.usuario.quero_ler.models.Documento;
 import com.usuario.quero_ler.repository.DocumentoRepository;
 import org.junit.jupiter.api.Assertions;
@@ -42,7 +43,7 @@ public class DocumentoTest {
 
     @BeforeEach
     void setUp() {
-        LoginRequestDto autenticacaoDto = new LoginRequestDto("admin","Teste123&", UsuarioProfile.ADMINISTRADOR);
+        LoginRequestDto autenticacaoDto = LoginFixture.requestDto();
         template.postForEntity("/logins", autenticacaoDto, Void.class);
     }
 

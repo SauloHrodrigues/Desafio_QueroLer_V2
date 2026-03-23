@@ -36,7 +36,7 @@ public class UsuariosTest {
 
     private void logar(Long id) {
         Usuario usuario = repository.findById(id).get();
-        LoginRequestDto autenticacaoDto = new LoginRequestDto(usuario.getUser().getUser(), "Teste123&", usuario.getUser().getProfile());
+        LoginRequestDto autenticacaoDto = new LoginRequestDto(usuario.getUser().getUser(), "Teste123&");
         template.postForEntity("/logins", autenticacaoDto, Void.class);
     }
 

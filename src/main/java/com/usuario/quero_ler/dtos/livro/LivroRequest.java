@@ -30,8 +30,6 @@ public record LivroRequest(
         @Size(min = 50, message = "A sinopse deve ter no mínimo 50 caracteres")
         String sinopse,
 
-        byte[] capaDoLivro,
-
         @NotEmpty
         List<AutorRequest> autores
 ) {}

@@ -8,6 +8,7 @@ import com.usuario.quero_ler.models.Livro;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,6 @@ public class LivroMapper{
         livro.setNumeroDePaginas(dto.numeroDePaginas());
         livro.setIdioma(dto.idioma());
         livro.setSinopse(dto.sinopse());
-        livro.setCapaDoLivro(dto.capaDoLivro());
         return livro;
     }
 
@@ -43,7 +43,7 @@ public class LivroMapper{
                 livro.getNumeroDePaginas(),
                 livro.getIdioma(),
                 livro.getSinopse(),
-                livro.getCapaDoLivro(),
+                "/livros/"+ livro.getId() + "/capa",
                 autorResponses
         );
     }

@@ -53,7 +53,7 @@ class LoginServiceImplTest {
     void deveFazerLoginComSucesso() {
         String senha = "Teste123&";
         User user = UserFixture.userEntity(UsuarioProfile.LEITOR);
-        LoginRequestDto dto = LoginFixture.requestDto(UsuarioProfile.LEITOR);
+        LoginRequestDto dto = LoginFixture.requestDto();
 
         when(repository.findByUserIgnoreCase(dto.user())).thenReturn(Optional.of(user));
 
@@ -65,7 +65,7 @@ class LoginServiceImplTest {
     @Test
     @DisplayName("Deve lançar excessão ao tentar login com usuário não cadastrado.")
     void deveLancarExcessaoAoFazerLoginComUsuarioNaoCadastrado() {
-        LoginRequestDto dto = LoginFixture.requestDto(UsuarioProfile.LEITOR);
+        LoginRequestDto dto = LoginFixture.requestDto();
 
         when(repository.findByUserIgnoreCase(dto.user())).thenReturn(Optional.empty());
 
@@ -80,7 +80,7 @@ class LoginServiceImplTest {
     @DisplayName("Deve lançar excessão ao tentar login com profile inválido.")
     void deveLancarExcessaoAoFazerLoginComProfileInvalido() {
         User user = UserFixture.userEntity(UsuarioProfile.ADMINISTRADOR);
-        LoginRequestDto dto = LoginFixture.requestDto(UsuarioProfile.LEITOR);
+        LoginRequestDto dto = LoginFixture.requestDto();
 
         when(repository.findByUserIgnoreCase(dto.user())).thenReturn(Optional.of(user));
 
@@ -95,7 +95,7 @@ class LoginServiceImplTest {
     @DisplayName("Deve lançar excessão ao tentar login com senha inválida.")
     void deveLancarExcessaoAoFazerLoginComSenhaInvalido() {
         User user = UserFixture.userEntity(UsuarioProfile.ADMINISTRADOR);
-        LoginRequestDto dto = new LoginRequestDto(user.getUser(), "Teste1234$", user.getProfile());
+        LoginRequestDto dto = new LoginRequestDto(user.getUser(), "Teste1234$");
 
         when(repository.findByUserIgnoreCase(dto.user())).thenReturn(Optional.of(user));
 
