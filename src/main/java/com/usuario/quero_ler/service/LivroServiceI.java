@@ -7,10 +7,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface LivroServiceI {
     LivroResponse criar(LivroRequest dto, MultipartFile capaDoLivro);
     Page<LivroResponse> listar(Pageable pageable);
-    Object buscar(BuscaDeLivrosRequest dto, Pageable pageable);
+    LivroResponse buscarIsbn(String isbn);
+    List<LivroResponse> buscar(String titulo, String editora, String autor);
     void inserirCapaDoLivro(Long id, MultipartFile capaDoLivro);
     byte[] buscarCapa(Long id);
 }

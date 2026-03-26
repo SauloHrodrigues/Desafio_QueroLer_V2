@@ -75,6 +75,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
+   @ExceptionHandler(IsbnJaCadastradoException.class)
+    public ResponseEntity<Object> handlerIsbnJaCadastradoException(IsbnJaCadastradoException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
     @ExceptionHandler(CapaForaDePadraoException.class)
     public ResponseEntity<Object> handlerCapaForaDePadraoException(CapaForaDePadraoException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());

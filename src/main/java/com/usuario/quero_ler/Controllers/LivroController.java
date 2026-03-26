@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/livros")
@@ -37,9 +39,16 @@ public class LivroController {
         return ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
-    @GetMapping("/buscar")
-    public ResponseEntity<Object> buscar(@RequestBody BuscaDeLivrosRequest dto, Pageable pageable){
-        return ResponseEntity.status(HttpStatus.OK).body(serviceI.buscar(dto, pageable));
+    @GetMapping("/buscar/{isbn}")
+    public ResponseEntity<LivroResponse> buscar(@PathVariable String isbn){
+        return ResponseEntity.status(HttpStatus.OK).body(serviceI.buscarIsbn(isbn));
+    }
+
+    @GetMapping("/buscar/filtro")
+    public ResponseEntity<List<LivroResponse>> buscarFiltro(@RequestParam(required = false) String titulo,
+                                                            @RequestParam(required = false) String editora,
+                                                            @RequestParam(required = false) String autor){
+        return ResponseEntity.status(HttpStatus.OK).body(serviceI.buscar(titulo,editora,autor));
     }
 
     @GetMapping("/{id}/capa")
