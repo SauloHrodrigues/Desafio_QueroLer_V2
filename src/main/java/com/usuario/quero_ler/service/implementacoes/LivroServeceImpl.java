@@ -110,10 +110,10 @@ public class LivroServeceImpl implements LivroServiceI {
     }
 
     @Override
-    public List<LivroResponse> buscar(String titulo, String editora,String autor){
+    public Page<LivroResponse> buscar(String titulo, String editora,String autor, Pageable pageable){
         loginServiceI.validarLogin();
         Specification<Livro> filtro = LivroFiltro.filtro(titulo, editora, autor);
-        List<LivroResponse> livros = repository.findAll(filtro).stream().map(mapper ::toResponse).toList();
+        Page<LivroResponse> livros = repository.findAll(filtro,pageable).map(mapper ::toResponse);
         if(livros.isEmpty()){
             throw new LivroNaoEncontradoException("Nenhum livro encontrado para essa busca!");
         }

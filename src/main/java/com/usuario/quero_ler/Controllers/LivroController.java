@@ -45,10 +45,11 @@ public class LivroController {
     }
 
     @GetMapping("/buscar/filtro")
-    public ResponseEntity<List<LivroResponse>> buscarFiltro(@RequestParam(required = false) String titulo,
+    public ResponseEntity<Page<LivroResponse>> buscarFiltro(@RequestParam(required = false) String titulo,
                                                             @RequestParam(required = false) String editora,
-                                                            @RequestParam(required = false) String autor){
-        return ResponseEntity.status(HttpStatus.OK).body(serviceI.buscar(titulo,editora,autor));
+                                                            @RequestParam(required = false) String autor,
+                                                            Pageable pageable){
+        return ResponseEntity.status(HttpStatus.OK).body(serviceI.buscar(titulo,editora,autor,pageable));
     }
 
     @GetMapping("/{id}/capa")

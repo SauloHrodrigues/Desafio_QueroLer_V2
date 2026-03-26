@@ -13,7 +13,7 @@ public interface LivroServiceI {
     LivroResponse criar(LivroRequest dto, MultipartFile capaDoLivro);
     Page<LivroResponse> listar(Pageable pageable);
     LivroResponse buscarIsbn(String isbn);
-    List<LivroResponse> buscar(String titulo, String editora, String autor);
+    Page<LivroResponse> buscar(String titulo, String editora, String autor, Pageable pageable);
     void inserirCapaDoLivro(Long id, MultipartFile capaDoLivro);
     byte[] buscarCapa(Long id);
 }
