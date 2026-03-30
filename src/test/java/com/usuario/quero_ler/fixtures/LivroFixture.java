@@ -1,6 +1,7 @@
 package com.usuario.quero_ler.fixtures;
 
 import com.usuario.quero_ler.dtos.livro.BuscaDeLivrosRequest;
+import com.usuario.quero_ler.dtos.livro.LivroCardResponse;
 import com.usuario.quero_ler.dtos.livro.LivroRequest;
 import com.usuario.quero_ler.dtos.livro.LivroResponse;
 import com.usuario.quero_ler.enuns.LivroIdioma;
@@ -11,6 +12,7 @@ import com.usuario.quero_ler.models.UsuarioLivro;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +65,10 @@ public class LivroFixture {
                 SINOPSE,
                 null,
                 autores,
-                null
+                null,
+                LocalDateTime.now(),
+                0
+
         );
     }
 public static Livro entityComCapa(){
@@ -80,7 +85,9 @@ public static Livro entityComCapa(){
                 SINOPSE,
                 CAPADOLIVRO,
                 autores,
-                null
+                null,
+              LocalDateTime.now(),
+              0
         );
     }
 
@@ -95,6 +102,17 @@ public static Livro entityComCapa(){
                 IDIOMA,
                 SINOPSE,
                 "/livros/"+ ID + "/capa",
+                List.of(AutorFixture.response())
+        );
+    }
+
+    public static LivroCardResponse responseCard(){
+        return new LivroCardResponse(
+                "/livros/"+ ID + "/capa",
+                TITULO,
+                EDITORA,
+                ANODEPUBLICACAO,
+                NUMERODEPAGINAS,
                 List.of(AutorFixture.response())
         );
     }

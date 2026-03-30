@@ -2,12 +2,14 @@ package com.usuario.quero_ler.Controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.usuario.quero_ler.dtos.livro.BuscaDeLivrosRequest;
+import com.usuario.quero_ler.dtos.livro.LivroCardResponse;
 import com.usuario.quero_ler.dtos.livro.LivroRequest;
 import com.usuario.quero_ler.dtos.livro.LivroResponse;
 import com.usuario.quero_ler.service.LivroServiceI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +35,15 @@ public class LivroController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping
-    ResponseEntity<Page<LivroResponse>> listar(Pageable pageable){
-        Page<LivroResponse> page = serviceI.listar(pageable);
+    @GetMapping("/buscar")
+    ResponseEntity<Page<LivroCardResponse>> listar(@PageableDefault(size = 40, sort = "id")Pageable pageable){
+        Page<LivroCardResponse> page = serviceI.listar(pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(page);
+    }
+
+    @GetMapping("/populares")
+    ResponseEntity<Page<LivroResponse>> listarPopulares(){
+        Page<LivroResponse> page = serviceI.listarPopulares();
         return ResponseEntity.status(HttpStatus.OK).body(page);
     }
 

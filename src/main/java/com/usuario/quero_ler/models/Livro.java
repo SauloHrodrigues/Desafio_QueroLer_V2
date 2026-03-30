@@ -3,9 +3,11 @@ package com.usuario.quero_ler.models;
 import com.usuario.quero_ler.enuns.LivroIdioma;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 
 import java.sql.Types;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +53,22 @@ public class Livro {
     @OneToMany(mappedBy = "livro", fetch = FetchType.LAZY)
     private List<UsuarioLivro> usuarios = new ArrayList<>();
 
+
+    @Setter(AccessLevel.NONE)
+    @CreationTimestamp
+    @Column(name = "data_de_cadastro",nullable = false)
+    private LocalDateTime dataDeCadastro;
+
+    @Setter(AccessLevel.NONE)
+    @Column(name = "quantidade_de_uso")
+    private Integer quantidadeDeUso;
+
+
     public void adicionarAutor(Autor autor){
         autores.add(autor);
+    }
+
+    public void computarAdicao(){
+        quantidadeDeUso++;
     }
 }

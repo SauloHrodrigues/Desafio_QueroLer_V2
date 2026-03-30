@@ -1,5 +1,6 @@
 package com.usuario.quero_ler.service.implementacoes;
 
+import com.usuario.quero_ler.dtos.livro.LivroCardResponse;
 import com.usuario.quero_ler.dtos.livro.LivroRequest;
 import com.usuario.quero_ler.dtos.livro.LivroResponse;
 import com.usuario.quero_ler.enuns.UsuarioProfile;
@@ -100,22 +101,22 @@ class LivroServeceImplTest {
         Pageable pageable = PageRequest.of(0, 10);
         Livro livro01 = LivroFixture.entity();
         Livro livro02 = LivroFixture.entity();
-        LivroResponse response = LivroFixture.response();
+        LivroCardResponse response = LivroFixture.responseCard();
         List<Livro> livros = List.of(livro01, livro02);
         Page<Livro> pageLivros = new PageImpl<>(livros, pageable, livros.size());
 
         when(login.validarLogin()).thenReturn(leitor);
         when(repository.findAll(pageable)).thenReturn(pageLivros);
-        when(mapper.toResponse(livro01)).thenReturn(response);
+        when(mapper.toCardResponse(livro01)).thenReturn(response);
 
-        Page<LivroResponse> resultado = service.listar(pageable);
+        Page<LivroCardResponse> resultado = service.listar(pageable);
 
         assertNotNull(resultado);
         assertEquals(2, resultado.getContent().size());
 
         verify(login).validarLogin();
         verify(repository).findAll(pageable);
-        verify(mapper).toResponse(livro01);
+        verify(mapper).toCardResponse(livro01);
     }
 
     @Test
