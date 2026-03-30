@@ -1,7 +1,6 @@
 package com.usuario.quero_ler.service.implementacoes;
 
 import com.usuario.quero_ler.dtos.autor.AutorRequest;
-import com.usuario.quero_ler.dtos.livro.BuscaDeLivrosRequest;
 import com.usuario.quero_ler.dtos.livro.LivroRequest;
 import com.usuario.quero_ler.dtos.livro.LivroResponse;
 import com.usuario.quero_ler.exceptions.especies.*;

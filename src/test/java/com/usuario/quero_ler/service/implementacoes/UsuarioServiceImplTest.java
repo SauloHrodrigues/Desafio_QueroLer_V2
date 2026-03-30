@@ -9,6 +9,7 @@ import com.usuario.quero_ler.mappers.UsuarioMapper;
 import com.usuario.quero_ler.models.User;
 import com.usuario.quero_ler.models.Usuario;
 import com.usuario.quero_ler.repository.UserRepository;
+import com.usuario.quero_ler.repository.UsuarioNotificacaoRepository;
 import com.usuario.quero_ler.repository.UsuarioRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,6 +42,9 @@ class UsuarioServiceImplTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private UsuarioNotificacaoRepository usuarioNotificacaoRepository;
 
     @Test
     @DisplayName("Deve criar um usuário com sucesso.")
@@ -136,7 +141,7 @@ class UsuarioServiceImplTest {
         User user = UserFixture.userEntity(UsuarioProfile.ADMINISTRADOR);
         Usuario usuario = UserFixture.entidadeCompleta(user);
         Long id = usuario.getId();
-        UsuarioAtualizadoAdministradorReguest atualizacoes = new UsuarioAtualizadoAdministradorReguest(
+        UsuarioAtualizadoAdministradorRequest atualizacoes = new UsuarioAtualizadoAdministradorRequest(
                  LocalDate.of(1978,9,12),null,"cidade atualizada",null,null
         );
         Usuario usuarioAtualizado = UserFixture.atualizar(usuario,atualizacoes);
@@ -161,6 +166,7 @@ class UsuarioServiceImplTest {
         Long id = usuario.getId();
 
         when(repository.findById(id)).thenReturn(Optional.of(usuario));
+        when(usuarioNotificacaoRepository.findByUsuarioId(id)).thenReturn(Collections.emptyList());
 
         service.excluirPerfil(id);
 

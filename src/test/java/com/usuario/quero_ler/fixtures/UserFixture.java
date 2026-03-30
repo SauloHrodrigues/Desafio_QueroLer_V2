@@ -76,7 +76,7 @@ public class UserFixture {
         );
     }
 
-    public static Usuario atualizar(Usuario usuario, UsuarioAtualizadoAdministradorReguest atualizacoes){
+    public static Usuario atualizar(Usuario usuario, UsuarioAtualizadoAdministradorRequest atualizacoes){
         usuario.setDataDeNascimento(atualizacoes.dataDeNascimento() != null ? atualizacoes.dataDeNascimento() : usuario.getDataDeNascimento());
         usuario.setCidade(atualizacoes !=null ? atualizacoes.cidade() : usuario.getCidade());
         usuario.setEstado(atualizacoes.estado() != null ? atualizacoes.estado() : usuario.getEstado());

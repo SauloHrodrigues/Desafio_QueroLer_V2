@@ -132,7 +132,7 @@ class UsuarioControllerTest {
     @DisplayName("Deve atualizar usuário administrador com sucesso")
     void deveAtualizarUsuarioAdministradorComSucesso() throws Exception {
         Long id = 1L;
-        UsuarioAtualizadoAdministradorReguest request = new UsuarioAtualizadoAdministradorReguest(LocalDate.of(2015,06,03),
+        UsuarioAtualizadoAdministradorRequest request = new UsuarioAtualizadoAdministradorRequest(LocalDate.of(2015,06,03),
             null,null,null,null);
 
         mockMvc.perform(put("/usuarios/{id}/administrador", id)

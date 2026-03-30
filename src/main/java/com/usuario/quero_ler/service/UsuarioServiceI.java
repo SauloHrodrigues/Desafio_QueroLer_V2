@@ -10,7 +10,7 @@ public interface UsuarioServiceI {
     UsuarioDadosResponse getDadosDoUsuario(Long id);
     Usuario getUsuario(Long id);
     void atualizar(Long id, UsuarioAtualizadoLeitorReguest dto);
-    void atualizar(Long id, UsuarioAtualizadoAdministradorReguest dto);
+    void atualizar(Long id, UsuarioAtualizadoAdministradorRequest dto);
     void alterarSenha(Long id, UsuarioAlterarSenhaReguest dto);
     void excluirPerfil(Long id);
 }

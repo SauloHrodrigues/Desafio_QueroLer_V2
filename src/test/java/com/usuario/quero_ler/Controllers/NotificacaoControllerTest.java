@@ -1,8 +1,6 @@
 package com.usuario.quero_ler.Controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.usuario.quero_ler.dtos.documento.DocumentoAlteracoesDto;
-import com.usuario.quero_ler.dtos.notificacao.NotificacaoRequestDto;
 import com.usuario.quero_ler.dtos.notificacao.NotificacaoResponseDto;
 import com.usuario.quero_ler.fixtures.NotificacaoFixture;
 import com.usuario.quero_ler.service.NotificacaoServiceI;
@@ -20,11 +18,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(NotificacaoController.class)
@@ -39,22 +36,6 @@ class NotificacaoControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("Deve criar notificacao com sucesso")
-    void deveCriarNotificacao() throws Exception {
-        NotificacaoRequestDto request = NotificacaoFixture.requestDto();
-        NotificacaoResponseDto response = NotificacaoFixture.response();
-
-        when(service.criar(any())).thenReturn(response);
-
-        mockMvc.perform(post("/notificacoes")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isCreated());
-
-        verify(service).criar(request);
-    }
-
-    @Test
     @DisplayName("Deve retornar notificações não lidas do usuário")
     void deveRetornarNotificacoesNaoLidasDoUsuario() throws Exception {
 
@@ -67,7 +48,7 @@ class NotificacaoControllerTest {
 
         when(service.naoLidas(idUsuario, pageable)).thenReturn(page);
 
-        mockMvc.perform(get("/notificacoes/{id}/usuario", idUsuario)
+        mockMvc.perform(get("/notificacoes/usuario/{id}", idUsuario)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 

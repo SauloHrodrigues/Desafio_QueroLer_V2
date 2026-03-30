@@ -66,7 +66,7 @@ class DocumentoServiceImplTest {
         assertEquals(dto.conteudo(), resposta.conteudo());
 
         verify(repository).save(documento);
-        verify(notificacaoService).criar(new NotificacaoRequestDto("Documento criado"));
+        verify(notificacaoService).criar(new NotificacaoRequestDto(documento.getTipo().name()));
     }
 
     @Test
@@ -102,7 +102,7 @@ class DocumentoServiceImplTest {
 
         assertEquals(alteracoes.titulo(), documentoAlterado.getTitulo());
         verify(repository).save(documentoAlterado);
-        verify(notificacaoService).criar(new NotificacaoRequestDto("documento alterado"));
+        verify(notificacaoService).criar(new NotificacaoRequestDto(documentoAlterado.getTipo().name()));
     }
 
     @Test

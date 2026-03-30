@@ -1,6 +1,5 @@
 package com.usuario.quero_ler.fixtures;
 
-import com.usuario.quero_ler.dtos.livro.BuscaDeLivrosRequest;
 import com.usuario.quero_ler.dtos.livro.LivroRequest;
 import com.usuario.quero_ler.dtos.livro.LivroResponse;
 import com.usuario.quero_ler.enuns.LivroIdioma;
@@ -26,15 +25,6 @@ public class LivroFixture {
     private static final byte[] CAPADOLIVRO = carregarImagem();
     private static final List<Autor> AUTORES = new ArrayList<>();
     private static final List<UsuarioLivro> USUARIOS = new ArrayList<>();
-
-    public static BuscaDeLivrosRequest buscaDeLivrosRequest(TiposDeBusca tiposDeBusca){
-        return switch (tiposDeBusca){
-            case ISBN -> new BuscaDeLivrosRequest(TiposDeBusca.ISBN,ISBN);
-            case EDITORA -> new BuscaDeLivrosRequest(TiposDeBusca.EDITORA,EDITORA);
-            case TITULO -> new BuscaDeLivrosRequest(TiposDeBusca.TITULO,TITULO);
-            case AUTOR -> new BuscaDeLivrosRequest(TiposDeBusca.AUTOR,AutorFixture.entity().getNome());
-        };
-    }
 
     public static LivroRequest request(){
         return new LivroRequest(

@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UsuarioNaoAutenticadoException.class)
     public ResponseEntity<Object> handlerUsuarioNaoAutenticadoException(UsuarioNaoAutenticadoException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
     }
 
     @ExceptionHandler(EmailInvalidoException.class)
@@ -68,7 +68,7 @@ public class GlobalExceptionHandler {
 
       @ExceptionHandler(UsuarioSemPermissaoParaAcaoException.class)
     public ResponseEntity<Object> handlerUsuarioSemPermissaoParaAcaoException(UsuarioSemPermissaoParaAcaoException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
     }
    @ExceptionHandler(UsuarioComPerfilInvalidoException.class)
     public ResponseEntity<Object> handlerUsuarioComPerfilInvalidoException(UsuarioComPerfilInvalidoException ex) {
@@ -96,7 +96,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(EnumInvalidoException.class)
     public ResponseEntity<String> handleEnumInvalido(EnumInvalidoException ex) {
-        return ResponseEntity.badRequest().body(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)

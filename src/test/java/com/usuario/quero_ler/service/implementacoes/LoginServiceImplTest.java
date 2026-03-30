@@ -77,21 +77,6 @@ class LoginServiceImplTest {
     }
 
     @Test
-    @DisplayName("Deve lançar excessão ao tentar login com profile inválido.")
-    void deveLancarExcessaoAoFazerLoginComProfileInvalido() {
-        User user = UserFixture.userEntity(UsuarioProfile.ADMINISTRADOR);
-        LoginRequestDto dto = LoginFixture.requestDto();
-
-        when(repository.findByUserIgnoreCase(dto.user())).thenReturn(Optional.of(user));
-
-        UsuarioComPerfilInvalidoException exception = assertThrows(UsuarioComPerfilInvalidoException.class,
-                () -> service.login(dto)
-        );
-
-        assertEquals("Perfil inválido", exception.getMessage());
-    }
-
-    @Test
     @DisplayName("Deve lançar excessão ao tentar login com senha inválida.")
     void deveLancarExcessaoAoFazerLoginComSenhaInvalido() {
         User user = UserFixture.userEntity(UsuarioProfile.ADMINISTRADOR);

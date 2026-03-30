@@ -160,7 +160,7 @@ public class UsuariosTest {
     @Test
     @DisplayName("Deve alterar de um usuario administrador com sucesso!")
     public void deveAlterarUmUsuarioAdministradorComSucesso() {
-        UsuarioAtualizadoAdministradorReguest dto = new UsuarioAtualizadoAdministradorReguest(null,
+        UsuarioAtualizadoAdministradorRequest dto = new UsuarioAtualizadoAdministradorRequest(null,
                 "Cidade alterada", "Estado Alterado", "Pais alterado", null);
 
         Long id = 1L;

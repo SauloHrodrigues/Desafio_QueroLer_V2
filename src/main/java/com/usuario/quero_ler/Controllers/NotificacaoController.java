@@ -1,9 +1,7 @@
 package com.usuario.quero_ler.Controllers;
 
-import com.usuario.quero_ler.dtos.notificacao.NotificacaoRequestDto;
 import com.usuario.quero_ler.dtos.notificacao.NotificacaoResponseDto;
 import com.usuario.quero_ler.service.NotificacaoServiceI;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class NotificacaoController {
     private final NotificacaoServiceI serviceI;
 
-    @GetMapping("/{id}/usuario")
+    @GetMapping("/usuario/{id}")
     public ResponseEntity<Page<NotificacaoResponseDto>> naoLidas(@PathVariable Long id, Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(serviceI.naoLidas(id, pageable));
     }

@@ -36,7 +36,7 @@ public class UsuarioMapper {
         return usuario;
     }
 
-    public Usuario update(Usuario usuario, UsuarioAtualizadoAdministradorReguest dto) {
+    public Usuario update(Usuario usuario, UsuarioAtualizadoAdministradorRequest dto) {
         if (dto.dataDeNascimento() != null) {
             usuario.setDataDeNascimento(dto.dataDeNascimento());
         }

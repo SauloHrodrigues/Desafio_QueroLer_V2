@@ -7,5 +7,4 @@ public record AutorRequest(
         @NotBlank
         @Size(max = 80)
         String nome
-) {
-}
+) {}

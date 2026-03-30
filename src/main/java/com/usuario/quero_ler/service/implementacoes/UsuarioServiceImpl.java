@@ -66,7 +66,7 @@ public class UsuarioServiceImpl implements UsuarioServiceI {
     }
 
     @Override
-    public void atualizar(Long id, UsuarioAtualizadoAdministradorReguest dto) {
+    public void atualizar(Long id, UsuarioAtualizadoAdministradorRequest dto) {
         Usuario usuario = getUsuario(id);
         login.validarLogin(usuario.getUser());
         usuario = mapper.update(usuario, dto);
